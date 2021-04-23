@@ -1,6 +1,5 @@
 --works best on 1x1 monitor
 --
---too bad the chatbox isn't in 1.16
 require "uRenderer"
 
 uRenderer.rects[0] = { --screenwipe
@@ -52,10 +51,16 @@ uRenderer.startup()
 
 local lastSighting
 while lastSighting == nil do
+
+    local savedSighting = settings.get("horologiumSighting")
+    if savedSighting ~= nil then
+        print("(Last used value: " .. savedSighting .. ")")
+    end
     print("Last known Horologium sighting: ")
     local input = read()
     if input ~= nil and tonumber(input) ~= nil then
         lastSighting = math.floor(input)
+        settings.set("horologiumSighting", lastSighting)
     end
 end
 
